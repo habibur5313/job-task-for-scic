@@ -10,7 +10,9 @@ import AuthProvider from './Provider/AuthProvider';
 import Register from './Pages/Authentication/Register';
 import Login from './Pages/Authentication/Login';
 import Home from './Pages/Home/Home';
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import PrivateRoute from './PrivateRoute';
+const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: "/",
@@ -18,7 +20,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Home></Home>
+        element: <PrivateRoute><Home></Home></PrivateRoute>
       },
       {
         path: '/register',
@@ -34,8 +36,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-     <AuthProvider>
-     <RouterProvider router={router}/> 
-     </AuthProvider>
-  </StrictMode>,
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </QueryClientProvider>
+  </StrictMode>
 )
