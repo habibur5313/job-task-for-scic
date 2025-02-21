@@ -3,30 +3,35 @@ import Modal from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
+import useTasks from "../../Hooks/useTasks";
 
 const AddLists = () => {
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
-const axiosPublic = useAxiosPublic()
-const {user} = useContext(AuthContext)
-
-  const handleAddCoupon = (e) => {
+  const axiosPublic = useAxiosPublic();
+  const { user } = useContext(AuthContext);
+  const [tasks, refetch] = useTasks();
+  const handleAddTask = (e) => {
     e.preventDefault();
-    const couponCode = e.target.couponCode.value;
-    const discountPercentage = parseInt(e.target.discountPercentage.value);
-    const couponDescription = e.target.couponDescription.value;
-    const couponInfo = {
-      couponCode,
-      discountPercentage,
-      couponDescription,
+    const title = e.target.title.value;
+    const description = e.target.description.value;
+    const taskInfo = {
+      title,
+      description,
+      email: user?.email,
+      name: user?.displayName,
+      time: new Date(),
+      list: "todo",
     };
-    axiosPublic.post("/couponCodes", couponInfo).then((res) => {
+
+    axiosPublic.post("/tasks", taskInfo).then((res) => {
       if (res.data.insertedId) {
         Swal.fire({
           position: "top-center",
           icon: "success",
-          title: "Coupon code added successfully",
+          title: "task added successfully",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -37,46 +42,47 @@ const {user} = useContext(AuthContext)
   };
   return (
     <div>
-      <button
-        className="btn bg-green-500 py-1 px-4 text-white"
-        onClick={onOpenModal}
-      >
-        Add Coupon
-      </button>
+      {tasks.length > 0 ? (
+        <div className="flex justify-end mb-5 mr-2 lg:mr-10">
+          <button
+            className="btn bg-green-500 py-1 px-4 text-white"
+            onClick={onOpenModal}
+          >
+            Add Task
+          </button>
+        </div>
+      ) : (
+        <div className="flex justify-center items-center min-h-[calc(100vh-295px)]">
+          <button
+            className="btn bg-green-500 py-1 px-4 text-white"
+            onClick={onOpenModal}
+          >
+            Add Task
+          </button>
+        </div>
+      )}
       <Modal open={open} onClose={onCloseModal} center>
-        <form onSubmit={handleAddCoupon}>
+        <form onSubmit={handleAddTask}>
           <div className="form-control">
             <label className="label">
-              <span className="label-text ml-4">coupon code</span>
+              <span className="label-text ml-4">List title</span>
             </label>
             <input
               type="text"
-              name="couponCode"
-              placeholder="enter coupon code"
+              name="title"
+              placeholder="enter list title"
               className="input input-bordered mx-5"
               required
             />
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="label-text ml-4">discount percentage</span>
-            </label>
-            <input
-              type="number"
-              name="discountPercentage"
-              placeholder="enter discount percentage"
-              className="input input-bordered mx-5"
-              required
-            />
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text ml-4">coupon description</span>
+              <span className="label-text ml-4">Description</span>
             </label>
             <textarea
-              name="couponDescription"
+              name="description"
               type="text"
-              placeholder=" coupon description"
+              placeholder="description"
               className="input input-bordered mx-5"
             ></textarea>
           </div>

@@ -2,18 +2,13 @@
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import axios from "axios";
-import Taskcard from "./Taskcard";
+import ListCard from "./ListCard";
+import useTasks from "../../Hooks/useTasks";
 
 const TodoList = () => {
   
-  const [tasks, setTasks] = useState([]);
+const [tasks] = useTasks()
 
-  // Fetch tasks from the backend
-  useEffect(() => {
-    axios.get("http://localhost:5000/tasks").then((response) => {
-      setTasks(response.data);
-    });
-  }, [tasks]);
   
 
   // Handle drag-and-drop
@@ -35,33 +30,31 @@ console.log(destination);
       }
       return task;
     });
-    setTasks(updatedTasks);
+    // setTasks(updatedTasks);
   };
 
   // // Group tasks by list
   const groupedTasks = {
-    todo: tasks.filter((task) => task.list === "todo"),
-    inProgress: tasks.filter((task) => task.list === "inProgress"),
-    done: tasks.filter((task) => task.list === "done"),
+    Todo: tasks.filter((task) => task.list === "todo"),
+    InProgress: tasks.filter((task) => task.list === "inProgress"),
+    Done: tasks.filter((task) => task.list === "done"),
   };
   
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <>
+    {tasks.length > 0 && <DragDropContext onDragEnd={onDragEnd}>
+    <div className="min-h-[calc(100vh-365px)]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
         {Object.entries(groupedTasks).map(([listId, tasks]) => (         
           <Droppable droppableId={listId} key={listId}  isDropDisabled={false} isCombineEnabled={false} ignoreContainerClipping={false}>
             {(provided) => (
               <div
                 ref={provided.innerRef}
                 {...provided.droppableProps}
-                style={{
-                  padding: "10px",
-                  border: "1px solid #ccc",
-                  borderRadius: "20px"
-                }}
+                className="border shadow-xl bg-gray-300 p-4  rounded-xl"
               >
-                <h2>{listId}</h2>
+                <h2 className="text-2xl font-semibold text-center mb-4">{listId}</h2>
                 {tasks.map((task, index) => (
                   <Draggable key={task._id} draggableId={task._id} index={index}>
                     {(provided) => (
@@ -69,14 +62,8 @@ console.log(destination);
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        style={{
-                          padding: "10px",
-                          margin: "5px",
-                          backgroundColor: "#f4f4f4",
-                          ...provided.draggableProps.style,
-                        }}
                       >
-                        {task.title} <br /> {task.description}
+                        <ListCard task={task}></ListCard>
                       </div>
                     )}
                   </Draggable>
@@ -86,10 +73,23 @@ console.log(destination);
             )}
           </Droppable>
         ))}
-        {/* <Taskcard groupedTasks={groupedTasks}></Taskcard> */}
       </div>
-    </DragDropContext>
-    // <></>
+      </div>
+    </DragDropContext>}
+    </>
+//     <DragDropContext onDragEnd={onDragEnd}>
+//     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+// <div className="border shadow-xl bg-gray-300 p-4 rounded-xl">
+//   {groupedTasks.todo.map(task => <ListCard key={task._id} task={task}></ListCard>)}
+// </div>
+// <div className="border shadow-xl bg-gray-300 p-4 rounded-xl">
+//   {groupedTasks.inProgress.map(task => <ListCard key={task._id} task={task}></ListCard>)}
+// </div>
+// <div className="border shadow-xl bg-gray-300 p-4 rounded-xl">
+//   {groupedTasks.done.map(task => <ListCard key={task._id} task={task}></ListCard>)}
+// </div>
+//     </div>
+//     </DragDropContext>
   );
 };
 

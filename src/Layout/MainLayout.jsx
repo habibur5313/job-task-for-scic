@@ -9,7 +9,7 @@ const {pathname} = useLocation()
                                         <div>
                                       <div className='container mx-auto'>
                                         {pathname === '/register' || pathname === '/login' || <Navbar></Navbar>}
-                                      <div className='min-h-[calc(100vh-275px)] pt-36'>
+                                      <div className=''>
                                       <Outlet></Outlet>   
                                       </div>
                                       </div>
