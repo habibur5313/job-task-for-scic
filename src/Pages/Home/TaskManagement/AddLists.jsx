@@ -1,25 +1,27 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Modal from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { AuthContext } from "../../../Provider/AuthProvider";
-import useTasks from "../../../Hooks/useTasks";
+import useCount from "../../../Hooks/useCount";
 
-const AddLists = () => {
+const AddLists = ({tasks,refetch}) => {
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
   const axiosPublic = useAxiosPublic();
   const { user } = useContext(AuthContext);
-  const [task, refetch] = useTasks();
+  const {tasksCount,recall} = useCount()
+  
+console.log(tasksCount,tasks.length);
 
   const handleAddTask = (e) => {
     e.preventDefault();
     const title = e.target.title.value;
     const description = e.target.description.value;
     const taskInfo = {
-      id:  task.length + 1,
+      id:  tasksCount + 1,
       title,
       description,
       email: user?.email,
@@ -39,12 +41,13 @@ const AddLists = () => {
         });
         setOpen(false);
         refetch();
+        recall()
       }
     });
   };
   return (
     <div>
-      {task.length > 0 ? (
+      {tasks.length > 0 ? (
         <div className="flex justify-end mb-5 mr-2 lg:mr-10">
           <button
             className="btn bg-green-500 py-1 px-4 text-white"

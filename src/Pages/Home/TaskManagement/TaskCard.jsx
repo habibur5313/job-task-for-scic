@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 import Modal from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
-import useTasks from "../../../Hooks/useTasks";
 
 const TaskCard = ({ task }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
@@ -18,7 +17,6 @@ const TaskCard = ({ task }) => {
         transform: `translate(${transform.x}px, ${transform.y}px)`,
       }
     : undefined;
-  const [, refetch] = useTasks();
   const axiosPublic = useAxiosPublic();
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
