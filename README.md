@@ -1,8 +1,7 @@
-Thanks for sharing the links! Here’s the updated `README.md` with your GitHub repo and live demo link.  
 
 ---
 
-# 📋 To-Do List Website  
+# 📋 Task Manage | To-Do List Website  
 
 A modern and interactive to-do list application with **drag-and-drop, edit, and delete** functionality. Built with **React, Firebase, and TailwindCSS**, this app helps users manage tasks efficiently.  
 
