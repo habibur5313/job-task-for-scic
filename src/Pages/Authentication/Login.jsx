@@ -8,7 +8,7 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Login = () => {
   useEffect(() => {
-    document.title = "Login | Grand Sultan ";
+    document.title = "Login | Task Manage ";
   }, []);
   const { SignInEmailAndPassword, SignInGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -74,7 +74,7 @@ const Login = () => {
   };
 
   return (
-    <div className=" flex justify-center items-center mt-20 md:mt-32  lg:mt-40">
+    <div className=" flex justify-center items-center pt-20 md:pt-32  lg:pt-40 min-h-screen">
       <div className="card bg-base-100 p-5 w-full max-w-lg shrink-0  border">
         <h1 className="text-2xl font-semibold text-center">Login now!</h1>
         <form
@@ -133,7 +133,7 @@ const Login = () => {
             </button>
           </div>
         </form>
-        <div className="divider text-2xl font-medium">OR</div>
+        <div className="divider text-2xl font-medium text-black">OR</div>
         <div className="flex justify-center">
           <button
             onClick={handleGoogleLogin}

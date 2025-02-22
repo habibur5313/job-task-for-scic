@@ -18,7 +18,7 @@ const PrivateRoute = ({ children }) => {
     return children;
   }
   return <div className="min-h-[calc(100vh-293px)] flex flex-col items-center justify-center">
-    <h1 className="text-4xl font-bold">Please Login</h1>
+    <h1 className="text-4xl font-bold">Please <Link to={'/login'}><span className="text-orange-700">Login</span></Link></h1>
   </div>
 };
 

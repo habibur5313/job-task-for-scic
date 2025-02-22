@@ -10,7 +10,7 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Register = () => {
   useEffect(() => {
-    document.title = "Register | Grand Sultan";
+    document.title = "Register | Task Manage";
   }, []);
   const { SignUpEmailAndPassword, SignInGoogle, Update_information } =
     useContext(AuthContext);
@@ -112,7 +112,7 @@ const Register = () => {
       });
   };
   return (
-    <div className=" flex justify-center items-center mt-10 md:mt-20 lg:mt-32">
+    <div className=" flex justify-center items-center pt-10 md:pt-20 lg:pt-32 min-h-screen">
       <div className="card bg-base-100 p-5 w-full max-w-lg shrink-0 border">
         <h1 className="text-2xl font-semibold text-center">Register now!</h1>
         <form
@@ -199,7 +199,7 @@ const Register = () => {
           </div>
         </form>
 
-        <div className="divider text-2xl font-medium">OR</div>
+        <div className="divider text-2xl font-medium text-black">OR</div>
         <div className="flex justify-center">
           <button
             onClick={handleGoogleLogin}
