@@ -2,7 +2,7 @@ import { useDroppable } from '@dnd-kit/core';
 import TaskCard from './TaskCard';
  // updated import to align with default export
 
-const Column = ({ column, tasks }) => {
+const Column = ({ column, tasks, refetch}) => {
   const { setNodeRef } = useDroppable({
     id: column.id,
   });
@@ -12,7 +12,7 @@ const Column = ({ column, tasks }) => {
       <h2 className="mb-4 font-semibold text-neutral-100">{column.title}</h2>
       <div ref={setNodeRef} key={column.id} className="flex flex-1 flex-col gap-4">
         {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
+          <TaskCard key={task.id} task={task} refetch={refetch}/>
         ))}
       </div>
     </div>

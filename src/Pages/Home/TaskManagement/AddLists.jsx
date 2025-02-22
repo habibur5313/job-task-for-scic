@@ -14,12 +14,21 @@ const AddLists = ({tasks,refetch}) => {
   const { user } = useContext(AuthContext);
   const {tasksCount,recall} = useCount()
   
-console.log(tasksCount,tasks.length);
-
+// console.log(tasksCount,tasks.length);
+const [titleError,setTitleError] = useState('')
+const [desError,setDesError] = useState('')
   const handleAddTask = (e) => {
     e.preventDefault();
     const title = e.target.title.value;
     const description = e.target.description.value;
+    console.log(title.length,description.length);
+    if(title.length > 50){
+      setTitleError('title max 50 characters')
+    }
+    else if(description.length > 200){
+      setDesError('Description max 200 characters')
+    }
+   else{
     const taskInfo = {
       id:  tasksCount + 1,
       title,
@@ -29,7 +38,8 @@ console.log(tasksCount,tasks.length);
       time: new Date(),
       status: "TODO",
     };
-
+    setTitleError('')
+    setDesError('')
     axiosPublic.post("/tasks", taskInfo).then((res) => {
       if (res.data.insertedId) {
         Swal.fire({
@@ -44,13 +54,14 @@ console.log(tasksCount,tasks.length);
         recall()
       }
     });
+   }
   };
   return (
     <div>
       {tasks.length > 0 ? (
         <div className="flex justify-end mb-5 mr-2 lg:mr-10">
           <button
-            className="btn bg-green-500 py-1 px-4 text-white"
+            className="btn py-1 px-4 text-xl font-medium"
             onClick={onOpenModal}
           >
             Add Task
@@ -59,7 +70,7 @@ console.log(tasksCount,tasks.length);
       ) : (
         <div className="flex justify-center items-center min-h-[calc(100vh-295px)]">
           <button
-            className="btn bg-green-500 py-1 px-4 text-white"
+            className="btn  py-1 px-4 text-xl font-medium"
             onClick={onOpenModal}
           >
             Add Task
@@ -79,6 +90,7 @@ console.log(tasksCount,tasks.length);
               className="input input-bordered mx-5"
               required
             />
+            <p className="text-red-600">{titleError}</p>
           </div>
           <div className="form-control">
             <label className="label">
@@ -90,6 +102,7 @@ console.log(tasksCount,tasks.length);
               placeholder="description"
               className="input input-bordered mx-5"
             ></textarea>
+             <p className="text-red-600">{desError}</p>
           </div>
           <div className="flex justify-end mt-4">
             <button className="btn bg-orange-400 text-white text-xl font-medium">

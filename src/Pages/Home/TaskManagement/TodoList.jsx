@@ -48,6 +48,7 @@ const TodoList = () => {
             <DndContext onDragEnd={handleDragEnd}>
               {COLUMNS.map((column) => (
                 <Column
+                refetch={refetch}
                   key={column.id}
                   column={column}
                   tasks={tasks.filter((task) => task.status === column.id)}

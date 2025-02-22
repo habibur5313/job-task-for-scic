@@ -7,7 +7,7 @@ import Modal from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
-const TaskCard = ({ task }) => {
+const TaskCard = ({ task, refetch}) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: task.id,
   });
@@ -22,27 +22,27 @@ const TaskCard = ({ task }) => {
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
-  const handleDelete = (id) => {
+  const handleDelete = () => {
 
-    //       Swal.fire({
-    //         title: "Do you want to save the changes?",
-    //         showDenyButton: true,
-    //         showCancelButton: true,
-    //         confirmButtonText: "delete",
-    //         denyButtonText: `Don't delete`,
-    //       }).then((result) => {
-    //         /* Read more about isConfirmed, isDenied below */
-    //         if (result.isConfirmed) {
-    //           axiosPublic.delete(`/tasks/${task._id}`).then((res) => {
-    //             if (res.data.deletedCount > 0) {
-    //               Swal.fire("Deleted successfully");
-    //               refetch();
-    //             }
-    //           });
-    //         } else if (result.isDenied) {
-    //           Swal.fire("Changes are not saved", "", "info");
-    //         }
-    //       });
+          Swal.fire({
+            title: "Do you want to save the changes?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "delete",
+            denyButtonText: `Don't delete`,
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              axiosPublic.delete(`/tasks/${task._id}`).then((res) => {
+                if (res.data.deletedCount > 0) {
+                  Swal.fire("Deleted successfully");
+                  refetch();
+                }
+              });
+            } else if (result.isDenied) {
+              Swal.fire("Changes are not saved", "", "info");
+            }
+          });
   };
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -51,10 +51,6 @@ const TaskCard = ({ task }) => {
     const taskInfo = {
       title,
       description,
-      email: task.email,
-      name: task.name,
-      time: task.time,
-      list: task.list,
     };
 
     axiosPublic.patch(`/tasks/${task._id}`, taskInfo).then((res) => {
@@ -86,7 +82,7 @@ const TaskCard = ({ task }) => {
             <button className="text-white" onClick={onOpenModal}>
               <CiEdit />
             </button>
-            <button className="text-red-600" onClick={() => handleDelete("hello")}>
+            <button className="text-red-600" onClick={handleDelete}>
               <MdDeleteForever />
             </button>
           </div>
