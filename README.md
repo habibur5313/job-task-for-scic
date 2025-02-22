@@ -11,11 +11,10 @@ A modern and interactive to-do list application with **drag-and-drop, edit, and 
 
 ## 🚀 Features  
 
-✅ **Drag and Drop** – Rearrange tasks effortlessly using `@dnd-kit/core` and `react-beautiful-dnd`.  
+✅ **Drag and Drop** – Rearrange tasks effortlessly using `@dnd-kit/core`.  
 ✅ **Edit & Delete** – Modify tasks easily and remove completed ones.  
 ✅ **Persistent Storage** – Saves tasks using **Firebase** and **LocalForage**.  
-✅ **Responsive UI** – Built with **TailwindCSS** and **DaisyUI** for a beautiful design.  
-✅ **Task Filtering & Sorting** – Uses `match-sorter` for better organization.  
+✅ **Responsive UI** – Built with **TailwindCSS** and **DaisyUI** for a beautiful design.   
 ✅ **Sweet Alerts** – Beautiful alerts powered by `sweetalert2`.  
 
 ## 📸 Screenshots  
@@ -24,12 +23,12 @@ A modern and interactive to-do list application with **drag-and-drop, edit, and 
 
 ## 🛠️ Tech Stack  
 
-- **Frontend:** React, Vite, TailwindCSS, DaisyUI  
+- **Frontend:** React, TailwindCSS, DaisyUI  
 - **State Management:** TanStack React Query  
-- **Drag & Drop:** `@dnd-kit/core`, `react-beautiful-dnd`  
+- **Drag & Drop:** `@dnd-kit/core`
 - **Backend & Storage:** Firebase, LocalForage  
 - **API Calls:** Axios  
-- **UI Enhancements:** React Icons, Swiper, SweetAlert2  
+- **UI Enhancements:** React Icons, SweetAlert2  
 
 ## 📦 Dependencies  
 
@@ -44,16 +43,13 @@ A modern and interactive to-do list application with **drag-and-drop, edit, and 
   "localforage": "^1.10.0",
   "match-sorter": "^8.0.0",
   "react": "^19.0.0",
-  "react-beautiful-dnd": "^13.1.1",
   "react-dom": "^19.0.0",
   "react-icons": "^5.5.0",
   "react-responsive-modal": "^6.4.2",
   "react-router-dom": "^7.2.0",
   "react-simple-typewriter": "^5.0.1",
   "sort-by": "^1.2.0",
-  "swapy": "^1.0.5",
   "sweetalert2": "^11.17.2",
-  "swiper": "^11.2.4"
 }
 ```
 
@@ -133,8 +129,3 @@ The project is deployed on **Surge**. You can access it here:
 
 👤 **Habibur Rahman** – *Developer*  
 
-## 📜 License  
-
-MIT License. See `LICENSE` for details.  
-
----

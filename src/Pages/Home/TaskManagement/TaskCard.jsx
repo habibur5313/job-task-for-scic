@@ -25,7 +25,6 @@ const TaskCard = ({ task }) => {
   const onCloseModal = () => setOpen(false);
 
   const handleDelete = (id) => {
-    console.log(id);
 
     //       Swal.fire({
     //         title: "Do you want to save the changes?",

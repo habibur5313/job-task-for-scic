@@ -3,35 +3,39 @@ import Column from "./Column";
 import { DndContext } from "@dnd-kit/core";
 import axios from "axios";
 import useTasks from "../../../Hooks/useTasks";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const COLUMNS = [
   { id: "TODO", title: "To Do" },
   { id: "IN_PROGRESS", title: "In Progress" },
   { id: "DONE", title: "Done" },
 ];
-
 export default function TodoList() {
   const [task] = useTasks();
   const [tasks, setTasks] = useState([]);
-
+  
+  const axiosPublic = useAxiosPublic();
   useEffect(() => {
     setTasks(task);
   }, [task]);
 
   function handleDragEnd(event) {
     const { active, over } = event;
-    console.log(event);
 
     if (!over) return;
 
     const taskId = active.id;
     const newStatus = over.id;
 
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === taskId ? { ...task, status: newStatus } : task
-      )
-    );
+    axiosPublic
+      .patch(`/taskList?taskId=${taskId}&newStatus=${newStatus}`)
+      .then((res) => {
+        setTasks((prevTasks) =>
+          prevTasks.map((task) =>
+            task.id === taskId ? { ...task, status: newStatus } : task
+          )
+        );
+      });
   }
 
   return (
