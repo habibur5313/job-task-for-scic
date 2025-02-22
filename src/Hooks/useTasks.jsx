@@ -4,14 +4,14 @@ import { useQuery } from '@tanstack/react-query';
 
 const useTasks = () => {
                     const axiosPublic = useAxiosPublic();
-                    const { data: tasks = [], refetch } = useQuery({
+                    const { data: task = [], refetch } = useQuery({
                       queryKey: ["tasks"],
                       queryFn: async () => {
                         const res = await axiosPublic.get("/tasks");
                         return res.data;
                       },
                     });
-                    return [tasks,refetch]
+                    return [task,refetch]
 };
 
 export default useTasks;

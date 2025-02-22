@@ -12,18 +12,20 @@ const AddLists = () => {
   const onCloseModal = () => setOpen(false);
   const axiosPublic = useAxiosPublic();
   const { user } = useContext(AuthContext);
-  const [tasks, refetch] = useTasks();
+  const [task, refetch] = useTasks();
+
   const handleAddTask = (e) => {
     e.preventDefault();
     const title = e.target.title.value;
     const description = e.target.description.value;
     const taskInfo = {
+      id:  task.length + 1,
       title,
       description,
       email: user?.email,
       name: user?.displayName,
       time: new Date(),
-      list: "todo",
+      status: "TODO",
     };
 
     axiosPublic.post("/tasks", taskInfo).then((res) => {
@@ -42,7 +44,7 @@ const AddLists = () => {
   };
   return (
     <div>
-      {tasks.length > 0 ? (
+      {task.length > 0 ? (
         <div className="flex justify-end mb-5 mr-2 lg:mr-10">
           <button
             className="btn bg-green-500 py-1 px-4 text-white"
