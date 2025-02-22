@@ -12,11 +12,13 @@ import Login from './Pages/Authentication/Login';
 import Home from './Pages/Home/Home';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import PrivateRoute from './PrivateRoute';
+import Error from './Error/Error';
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    errorElement: <Error></Error>,
     children: [
       {
         path: '/',

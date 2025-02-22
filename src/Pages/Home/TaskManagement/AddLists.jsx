@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import Modal from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
-import useTasks from "../../Hooks/useTasks";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { AuthContext } from "../../../Provider/AuthProvider";
+import useTasks from "../../../Hooks/useTasks";
 
 const AddLists = () => {
   const [open, setOpen] = useState(false);
